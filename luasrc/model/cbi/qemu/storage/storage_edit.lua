@@ -104,8 +104,11 @@ o.validate = function(self, value, section)
         end
         
         if not valid then
-            local expected_format = disk_type == "disk" and translate("hd0, hd1, etc.") or translate("cd0, cd1, etc.")
-            return nil, translate("Invalid ID format. Please use format like ") .. expected_format
+            if disk_type == "disk" then
+                return nil, translate("Invalid ID format. Please use format like hd0, hd1, etc.")
+            else
+                return nil, translate("Invalid ID format. Please use format like cd0, cd1, etc.")
+            end
         end
     end
     return value

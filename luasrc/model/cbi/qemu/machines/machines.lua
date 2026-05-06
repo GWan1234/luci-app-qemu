@@ -291,48 +291,12 @@ else
     -- 处理删除请求
     if luci.http.formvalue("delete") then
         local section = luci.http.formvalue("section")
-        local delete_disks = luci.http.formvalue("delete_disks")
-        -- TODO 不仅仅是删除下面这些资源，包括好多
+
         if section then
-            -- 获取虚拟机关联的磁盘文件
-            local uci = require("luci.model.uci").cursor()
-            local disks = {}
-            uci:foreach("qemu", "disk", function(disk)
-                if disk.vm == "@" .. section then
-                    table.insert(disks, disk.file)
-                end
-            end)
+            -- 将虚拟机配置节加入暂存区待删除
+            m.map:del(section)
             
-            -- 删除磁盘文件
-            if delete_disks == "1" then
-                for _, disk_file in ipairs(disks) do
-                    luci.sys.call("rm -f " .. disk_file)
-                end
-            end
-            
-            -- 删除虚拟机配置
-            luci.sys.call("uci delete qemu." .. section)
-            
-            -- 删除关联的磁盘、网络、显示配置
-            uci:foreach("qemu", "disk", function(disk)
-                if disk.vm == "@" .. section then
-                    luci.sys.call("uci delete qemu." .. disk[".name"])
-                end
-            end)
-            
-            uci:foreach("qemu", "net", function(net)
-                if net.vm == "@" .. section then
-                    luci.sys.call("uci delete qemu." .. net[".name"])
-                end
-            end)
-            
-            uci:foreach("qemu", "display", function(display)
-                if display.vm == "@" .. section then
-                    luci.sys.call("uci delete qemu." .. display[".name"])
-                end
-            end)
-            
-            luci.sys.call("uci commit qemu")
+            -- 重定向回列表页
             luci.http.redirect(luci.dispatcher.build_url("admin", "services", "qemu", "machines"))
         end
     end
