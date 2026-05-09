@@ -14,7 +14,7 @@ local vm_bridge = luci.http.formvalue("bridge") or "br-lan"
 local vm_boot_type = luci.http.formvalue("boot_type") or "legacy"
 local vm_display = luci.http.formvalue("display") or "none"
 local vm_vnc_port = luci.http.formvalue("vnc_port") or "5900"
-local vm_video_type = luci.http.formvalue("video_type") or "vga"
+local vm_video_type = luci.http.formvalue("video_type") or "std"
 
 -- 获取默认存储路径
 local storage_path = uci:get("qemu", "@global[0]", "storage_path") or "/storage/qemu"
@@ -263,7 +263,8 @@ function validateForm() {
                         <label class="cbi-value-title" for="video_type"><%:Video Device Type%></label>
                         <div class="cbi-value-field">
                             <select id="video_type" name="video_type">
-                                <option value="vga" <%=(luci.http.formvalue('video_type') or 'vga') == 'vga' and 'selected' or ''%>><%:VGA%></option>
+                                <option value="virtio" <%=(luci.http.formvalue('video_type') or 'std') == 'virtio' and 'selected' or ''%>><%:VirtIO%></option>
+                                <option value="std" <%=(luci.http.formvalue('video_type') or 'std') == 'std' and 'selected' or ''%>><%:STD%></option>
                                 <option value="bochs" <%=luci.http.formvalue('video_type') == 'bochs' and 'selected' or ''%>><%:Bochs%></option>
                                 <option value="ramfb" <%=luci.http.formvalue('video_type') == 'ramfb' and 'selected' or ''%>><%:Ramfb%></option>
                             </select>

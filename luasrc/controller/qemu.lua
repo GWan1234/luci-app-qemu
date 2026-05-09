@@ -218,7 +218,7 @@ function wizard()
 		local vm_vnc_port_mannual = luci.http.formvalue("vnc_port_mannual") or "0"
 		local vm_cdrom_image = luci.http.formvalue("cdrom_image")
 		local vm_disk_path = luci.http.formvalue("disk_path")
-		local vm_video_type = luci.http.formvalue("video_type") or "vga"
+		local vm_video_type = luci.http.formvalue("video_type") or "std"
 		
 		-- 检查磁盘文件是否已存在
 		local file = io.open(vm_disk_path, "r")

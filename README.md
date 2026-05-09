@@ -6,6 +6,29 @@ QEMU Virtual Machine Manager for OpenWrt/LEDE
 
 luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines on OpenWrt/LEDE systems. It provides a user-friendly interface to create, configure, start, stop, and monitor virtual machines directly from the web browser.
 
+## Screenshots
+
+### Virtual Machine List
+![VM List](docs/screenshots/vm_list.png)
+
+### Add New Virtual Machine
+![Wizard](docs/screenshots/wizard.png)
+
+### Basic Settings
+![Basic](docs/screenshots/basic.png)
+
+### Storage Configuration
+![Storage](docs/screenshots/storage.png)
+
+### Network Configuration
+![Network](docs/screenshots/network.png)
+
+### PCI Device Passthrough
+![Passthrough](docs/screenshots/passthrough.png)
+
+### Global Settings
+![Enable](docs/screenshots/enable.png)
+
 ## Features
 
 - **Virtual Machine Management**
@@ -13,20 +36,22 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
   - Start, stop, restart virtual machines
   - View VM status and resource usage
   - Force stop unresponsive VMs
+  - Auto-start configuration
 
 - **Hardware Configuration**
   - CPU and memory allocation
-  - Storage device management (disk images)
+  - Storage device management (disk images, VirtIO, IDE, SCSI, USB)
   - Network interface configuration
   - Display settings (VNC)
-  - Input devices
+  - Input devices (keyboard, mouse)
   - Sound devices
-  - Host device passthrough
+  - Controller devices (USB, SCSI, VirtIO Serial)
+  - Host device passthrough (PCI Passthrough)
+  - Watchdog timer
 
 - **Advanced Settings**
   - Boot options (Legacy BIOS/UEFI)
   - VNC display with password protection
-  - Auto-start configuration
   - Serial console access
   - QMP interface for advanced management
 
@@ -36,9 +61,11 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
   - Disk image resizing
 
 - **Network Configuration**
+  - User mode NAT network
+  - Tap network
   - Bridge network interfaces
+  - Socket network
   - Port forwarding
-  - Custom network scripts
 
 ## Requirements
 
@@ -47,8 +74,9 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
   - `qemu-system-x86_64` (or other architectures as needed)
   - `qemu-img`
   - `qemu-bridge-helper`
-  - `edk2-ovmf` (for UEFI support)
   - `qemu-firmware-seabios` (for Legacy BIOS support)
+- OVMF package (for UEFI support):
+  - Build from [edk2-ovmf](https://github.com/hoyoho/edk2-ovmf) for OpenWrt
 - Kernel modules:
   - `kmod-tun`
   - `kmod-kvm-amd` or `kmod-kvm-intel` (for hardware acceleration)
@@ -68,7 +96,7 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
    ```
 4. Install dependencies:
    ```bash
-   alk add qemu-system-x86_64 qemu-img qemu-bridge-helper edk2-ovmf qemu-firmware-seabios kmod-tun kmod-kvm-amd socat
+   opkg install qemu-system-x86_64 qemu-img qemu-bridge-helper qemu-firmware-seabios kmod-tun kmod-kvm-amd socat
    ```
 
 ### From Source

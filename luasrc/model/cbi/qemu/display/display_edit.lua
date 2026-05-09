@@ -148,10 +148,11 @@ elseif edit_type == "video" then
     
     -- 视频设备类型
     type = s:taboption("general", ListValue, "type", translate("Video Device Type"))
+    type:value("virtio", translate("VirtIO"))
+    type:value("std", translate("STD"))
     type:value("bochs", translate("Bochs"))
     type:value("ramfb", translate("Ramfb"))
-    type:value("vga", translate("VGA"))
-    type.default = "vga"
+    type.default = "std"
 end
 
 return m

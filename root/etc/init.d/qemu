@@ -842,17 +842,20 @@ build_video_config() {
 	
 	local videos=$(uci show qemu | grep -E "@video\[" | grep -E "vm='$vm_name'" | awk -F. '{print $2}' | awk -F= '{print $1}')
 	for video_ref in $videos; do
-		local video_type=$(uci_get_by_name "$video_ref" "type" "vga")
+		local video_type=$(uci_get_by_name "$video_ref" "type" "std")
 		
 		case "$video_type" in
+			virtio)
+				cmd="$cmd -device virtio-gpu-pci"
+				;;
+			std)
+				cmd="$cmd -vga std"
+				;;
 			bochs)
 				cmd="$cmd -device bochs-display"
 				;;
 			ramfb)
 				cmd="$cmd -device ramfb"
-				;;
-			vga|*)
-				cmd="$cmd -vga std"
 				;;
 		esac
 	done
