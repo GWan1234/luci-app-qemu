@@ -72,8 +72,8 @@ msgstr "-- 选择 USB 设备 --"
 msgid "PCI Host Devices"
 msgstr "PCI 主机设备"
 
-msgid "PCI passthrough devices"
-msgstr "PCI 透传设备"
+msgid "PCI passthrough devices, requires adding 'intel_iommu=on iommu=pt' to /boot/grub/grub.cfg"
+msgstr "PCI 透传设备，需要在 /boot/grub/grub.cfg 中添加 'intel_iommu=on iommu=pt' 内核参数"
 
 msgid "PCI Device"
 msgstr "PCI 设备"
@@ -1112,6 +1112,12 @@ msgstr "快照模式"
 
 msgid "Preallocate Memory"
 msgstr "预分配内存"
+
+msgid "Balloon Support"
+msgstr "Balloon 支持"
+
+msgid "Enable balloon memory support, not recommended to use with preallocate memory and does not work with PCI passthrough"
+msgstr "启用 Balloon 内存支持，不建议与预分配内存同时使用且有 PCI 透传设备时无效"
 
 msgid "Memory Merging"
 msgstr "内存合并"

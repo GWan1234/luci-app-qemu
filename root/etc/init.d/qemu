@@ -124,6 +124,7 @@ build_basic_config() {
 	local mem_size_num=$(echo "$mem_size" | sed 's/[^0-9]//g')
 	local mem_path=$(uci_get_by_name "$vm_ref" "mem_path" "")
 	local mem_prealloc=$(uci_get_by_name "$vm_ref" "mem_prealloc" "0")
+	local balloon=$(uci_get_by_name "$vm_ref" "balloon" "1")
 	local mem_merge=$(uci_get_by_name "$vm_ref" "mem_merge" "1")
 	local boot=$(uci_get_by_name "$vm_ref" "boot" "order=c")
 	local boot_menu=$(uci_get_by_name "$vm_ref" "boot_menu" "on")
@@ -155,6 +156,9 @@ build_basic_config() {
 	fi
 	if [ "$mem_merge" = "0" ]; then
 		cmd="$cmd -mem-merge off"
+	fi
+	if [ "$balloon" = "1" ]; then
+		cmd="$cmd -device virtio-balloon-pci,id=balloon0"
 	fi
 	
 	# 启动参数

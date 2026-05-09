@@ -241,6 +241,7 @@ function wizard()
 		uci:set("qemu", vm_section, "smp_cores", vm_cpus)
 		uci:set("qemu", vm_section, "smp_threads", "1")
 		uci:set("qemu", vm_section, "mem_size", vm_memory)
+		uci:set("qemu", vm_section, "balloon", "1")
 		uci:set("qemu", vm_section, "boot", "order=cdn")
 		uci:set("qemu", vm_section, "uefi", vm_boot_type == "uefi" and "1" or "0")
 

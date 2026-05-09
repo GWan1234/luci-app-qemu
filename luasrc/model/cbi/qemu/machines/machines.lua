@@ -37,6 +37,10 @@ if arg[1] then
     mem_merge = s:taboption("general", Flag, "mem_merge", translate("Memory Merging"))
     mem_merge.default = "0"
 
+    balloon = s:taboption("general", Flag, "balloon", translate("Balloon Support"))
+    balloon.default = "1"
+    balloon.description = translate("Enable balloon memory support, not recommended to use with preallocate memory and does not work with PCI passthrough")
+
     nodefaults = s:taboption("general", Flag, "nodefaults", translate("No Default Devices"))
     nodefaults.default = "1"
 
