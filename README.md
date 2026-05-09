@@ -2,6 +2,25 @@
 
 QEMU Virtual Machine Manager for OpenWrt/LEDE
 
+## Sponsor
+
+If you find this project helpful, you can sponsor me:
+
+<div align="center">
+
+<table>
+<tr>
+<td><img src="docs/screenshots/wechat.png" width="150"></td>
+<td><img src="docs/screenshots/alipay.jpg" width="150"></td>
+</tr>
+<tr>
+<td align="center">WeChat</td>
+<td align="center">Alipay</td>
+</tr>
+</table>
+
+</div>
+
 ## Overview
 
 luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines on OpenWrt/LEDE systems. It provides a user-friendly interface to create, configure, start, stop, and monitor virtual machines directly from the web browser.
@@ -69,9 +88,9 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
 
 ## Requirements
 
-- OpenWrt/LEDE system
+- OpenWrt 25.12.1 or later (x86_64 architecture only)
 - QEMU packages:
-  - `qemu-system-x86_64` (or other architectures as needed)
+  - `qemu-system-x86_64`
   - `qemu-img`
   - `qemu-bridge-helper`
   - `qemu-firmware-seabios` (for Legacy BIOS support)
@@ -86,33 +105,38 @@ luci-app-qemu is a LuCI-based web interface for managing QEMU virtual machines o
 
 ## Installation
 
-### From IPK Package
+### From APK Package
 
-1. Download the latest IPK package from the [releases](https://github.com/yourusername/luci-app-qemu/releases) page
-2. Upload the IPK to your OpenWrt device
+1. Download the latest APK package from the [releases](https://github.com/hoyoho/luci-app-qemu/releases) page
+2. Upload the APK to your OpenWrt device
 3. Install the package:
    ```bash
-   opkg install luci-app-qemu_*.ipk
+   apk add --force-overwrite --allow-untrusted luci-app-qemu*.apk luci-i18n-qemu*.apk
    ```
-4. Install dependencies:
+4. Install runtime dependencies:
    ```bash
-   opkg install qemu-system-x86_64 qemu-img qemu-bridge-helper qemu-firmware-seabios kmod-tun kmod-kvm-amd socat
+   apk add qemu-system-x86_64 qemu-img qemu-bridge-helper qemu-firmware-seabios kmod-tun kmod-kvm-amd socat
    ```
 
 ### From Source
 
-1. Clone the repository:
+To build luci-app-qemu from source, add the custom feed to your OpenWrt build environment:
+
+1. Clone the repository to your OpenWrt SDK's packages directory:
    ```bash
-   git clone https://github.com/yourusername/luci-app-qemu.git
+   git clone https://github.com/hoyoho/luci-app-qemu.git /path/to/sdk/package/luci-app-qemu
    ```
-2. Build the package:
+
+2. Enter the build configuration menu:
    ```bash
-   cd luci-app-qemu
-   make package/luci-app-qemu/compile V=99
+   make menuconfig
    ```
-3. Install the generated IPK package:
+
+3. In `make menuconfig`, navigate to `LuCI → Applications` to select luci-app-qemu.
+
+4. Exit and save, then compile:
    ```bash
-   opkg install bin/packages/*/luci-app-qemu_*.ipk
+   make package/luci-app-qemu/compile
    ```
 
 ## Usage
@@ -215,26 +239,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- QEMU Project for the virtualization technology
-- OpenWrt/LEDE for the embedded Linux platform
-- LuCI for the web interface framework
-
-## Screenshots
-
-![Dashboard](https://github.com/yourusername/luci-app-qemu/raw/main/screenshots/dashboard.png)
-![VM Creation](https://github.com/yourusername/luci-app-qemu/raw/main/screenshots/vm-creation.png)
-![VM Settings](https://github.com/yourusername/luci-app-qemu/raw/main/screenshots/vm-settings.png)
-![Storage Management](https://github.com/yourusername/luci-app-qemu/raw/main/screenshots/storage.png)
-
-## Support
-
-- **GitHub Issues**: [https://github.com/yourusername/luci-app-qemu/issues](https://github.com/yourusername/luci-app-qemu/issues)
-- **Forum**: [OpenWrt Forum](https://forum.openwrt.org/)
-- **Documentation**: [https://github.com/yourusername/luci-app-qemu/wiki](https://github.com/yourusername/luci-app-qemu/wiki)
-
----
-
-**Note**: This application is designed for advanced users familiar with virtualization concepts. Use at your own risk.
